@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { projectAPI, taskAPI } from '../services/api';
 import TaskCard from '../components/TaskCard';
@@ -15,7 +15,7 @@ const ProjectPage = () => {
   const [taskForm, setTaskForm] = useState({ title: '', description: '' });
   const [error, setError] = useState('');
 
-  const fetchData = async () => {
+  const fetchData = useCallback(async () => {
     setLoading(true);
     try {
       const proj = await projectAPI.getById(id);
@@ -24,9 +24,9 @@ const ProjectPage = () => {
       setTasks(tasksData);
     } catch (err) { setError('Failed to load'); }
     setLoading(false);
-  };
+  }, [id]);
 
-  useEffect(() => { fetchData(); }, [id]);
+  useEffect(() => { fetchData(); }, [fetchData]);
 
   const handleTaskSubmit = async (e) => {
     e.preventDefault();

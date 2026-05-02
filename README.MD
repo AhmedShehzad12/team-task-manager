@@ -66,7 +66,7 @@ team-task-manager/
 Installation & Setup:
 
 1.Clone the repository
-git clone https://github.com/your-username/team-taskmanager.git
+git clone
 cd team-task-manager
 
 2.Install dependencies

@@ -1,75 +1,208 @@
-# Team Task Manager - Full Stack MERN App
+=========================================
+                    TEAM TASK MANAGER - FULL STACK MERN APP
+=========================================
 
-A complete task management application with role-based access control (Admin/Member), project management, and task tracking.
+A complete task management application with role-based access control (Admin/Member),
+project management, and task tracking.
 
----
+=========================================
+                                  FEATURES
+================================================================================
 
-## Features
+1. AUTHENTICATION
+   - JWT-based Signup and Login
+   - Secure password hashing with bcryptjs
+   - Protected routes with authentication middleware
 
-### Authentication
-- JWT-based Signup and Login
-- Secure password hashing with bcryptjs
-- Protected routes with authentication middleware
+2. ROLE-BASED ACCESS CONTROL
+   - ADMIN: Full access - Create, Update, Delete any project/task
+   - MEMBER: Limited access - View assigned projects, update task status
 
-### Role-Based Access Control
-- **Admin:** Full access - Create, Update, Delete any project/task
-- **Member:** Limited access - View assigned projects, update task status
+3. PROJECT MANAGEMENT
+   - Create new projects with name and description
+   - View all projects
+   - Edit project details
+   - Delete projects (Admin only)
+   - Project status: Active, On Hold, Completed
 
-### Project Management
-- Create new projects with name and description
-- View all projects
-- Edit project details
-- Delete projects (Admin only)
-- Project status: Active, On Hold, Completed
+4. TASK MANAGEMENT
+   - Create tasks with title, description, due date
+   - Assign tasks to team members
+   - Set priority levels: Low, Medium, High, Urgent
+   - Task status: Pending, In Progress, Completed
+   - Update task status in real-time
+   - Delete tasks
 
-### Task Management
-- Create tasks with title, description, due date
-- Assign tasks to team members
-- Set priority levels: Low, Medium, High, Urgent
-- Task status: Pending, In Progress, Completed
-- Update task status in real-time
-- Delete tasks
+5. DASHBOARD
+   - Overview statistics (Total Projects, Tasks, Completed, Overdue)
+   - Tasks grouped by status
+   - Recent projects list
 
-### Dashboard
-- Overview statistics (Total Projects, Tasks, Completed, Overdue)
-- Tasks grouped by status
-- Recent projects list
+=========================================
+                            TECHNOLOGY STACK
+================================================================================
 
----
+FRONTEND:
+   - React.js 18
+   - React Router DOM v6
+   - Axios for API calls
+   - React Hot Toast for notifications
+   - date-fns for date formatting
+   - Vite as build tool
 
-## Technology Stack
+BACKEND:
+   - Node.js
+   - Express.js
+   - MongoDB with Mongoose ODM
+   - JWT for authentication
+   - bcryptjs for password hashing
+   - CORS enabled
 
-### Frontend
-- React.js 18
-- React Router DOM v6
-- Axios for API calls
-- React Hot Toast for notifications
-- date-fns for date formatting
-- Vite as build tool
+DEPLOYMENT:
+   - Vercel (Frontend)
+   - Render (Backend)
+   - MongoDB Atlas (Database)
 
-### Backend
-- Node.js
-- Express.js
-- MongoDB with Mongoose ODM
-- JWT for authentication
-- bcryptjs for password hashing
-- CORS enabled
+=========================================
+                          INSTALLATION GUIDE
+================================================================================
 
-### Deployment
-- Vercel (Frontend)
-- Render (Backend)
-- MongoDB Atlas (Database)
+PREREQUISITES:
+   - Node.js (v18 or higher)
+   - MongoDB Atlas account (or local MongoDB)
+   - Git
 
----
+STEP 1: CLONE THE REPOSITORY
+   git clone https://github.com/AhmedShehzad12/team-task-manager.git
+   cd team-task-manager
 
-## Installation Guide
+STEP 2: BACKEND SETUP
+   cd backend
+   npm install
+   Create .env file with:
+      PORT=5001
+      MONGODB_URI=your_mongodb_connection_string
+      JWT_SECRET=your_secret_key
+      NODE_ENV=development
+   npm run dev
 
-### Prerequisites
-- Node.js (v18 or higher)
-- MongoDB Atlas account (or local MongoDB)
-- Git
+STEP 3: FRONTEND SETUP
+   Open new terminal
+   cd frontend
+   npm install
+   Create .env file with:
+      VITE_API_URL=http://localhost:5001/api
+   npm run dev
 
-### Step 1: Clone the Repository
-```bash
-git clone https://github.com/AhmedShehzad12/team-task-manager.git
-cd team-task-manager
+STEP 4: ACCESS THE APPLICATION
+   Frontend: http://localhost:3000
+   Backend API: http://localhost:5001
+
+=========================================
+                              API ENDPOINTS
+================================================================================
+
+AUTHENTICATION:
+   POST   /api/auth/signup     - Register new user
+   POST   /api/auth/login      - Login user
+   GET    /api/auth/me         - Get current user
+
+PROJECTS:
+   GET    /api/projects        - Get all projects
+   POST   /api/projects        - Create new project
+   PUT    /api/projects/:id    - Update project
+   DELETE /api/projects/:id    - Delete project
+
+TASKS:
+   GET    /api/tasks           - Get all tasks
+   POST   /api/tasks           - Create new task
+   PATCH  /api/tasks/:id/status - Update task status
+   DELETE /api/tasks/:id       - Delete task
+
+USERS:
+   GET    /api/users           - Get all users (Admin only)
+
+=========================================
+                           ENVIRONMENT VARIABLES
+================================================================================
+
+BACKEND (.env):
+   PORT                 - Server port (default: 5001)
+   MONGODB_URI          - MongoDB connection string
+   JWT_SECRET           - Secret key for JWT tokens
+   NODE_ENV             - development/production
+
+FRONTEND (.env):
+   VITE_API_URL         - Backend API URL
+
+=========================================
+                              DATABASE SCHEMA
+================================================================================
+
+USER:
+   - name (String, required)
+   - email (String, required, unique)
+   - password (String, required, hashed)
+   - role (String: Admin/Member, default: Member)
+   - createdAt (Date)
+
+PROJECT:
+   - name (String, required)
+   - description (String, required)
+   - owner (ObjectId, ref: User)
+   - members (Array, ref: User)
+   - status (String: Active/Completed/On Hold)
+
+TASK:
+   - title (String, required)
+   - description (String, required)
+   - project (ObjectId, ref: Project)
+   - assignedTo (ObjectId, ref: User)
+   - assignedBy (ObjectId, ref: User)
+   - status (String: Pending/In Progress/Completed)
+   - priority (String: Low/Medium/High/Urgent)
+   - dueDate (Date)
+
+=========================================
+                              DEPLOYMENT
+================================================================================
+
+DEPLOYED ON: Vercel (Frontend) + Render (Backend)
+
+BACKEND URL: https://task-manager-backend.onrender.com
+FRONTEND URL: https://team-task-manager.vercel.app
+
+GITHUB REPOSITORY: https://github.com/AhmedShehzad12/team-task-manager
+
+=========================================
+                              TEST CREDENTIALS
+================================================================================
+
+ADMIN USER (First user becomes Admin):
+   Email: admin@example.com
+   Password: admin123
+
+MEMBER USER:
+   Email: member@example.com
+   Password: member123
+
+=====================================
+                              CONTACT & SUPPORT
+================================================================================
+
+Developer: Ahmed Shehzad
+GitHub: https://github.com/AhmedShehzad12
+Project Repository: https://github.com/AhmedShehzad12/team-task-manager
+
+=======================================
+                                CONCLUSION
+================================================================================
+
+Team Task Manager is a fully functional MERN stack application that helps teams
+manage projects and tasks efficiently with proper role-based access control.
+
+Thank you for reviewing this project!
+
+========================================
+# Update .env with your MongoDB URI and JWT secret
+npm run dev
